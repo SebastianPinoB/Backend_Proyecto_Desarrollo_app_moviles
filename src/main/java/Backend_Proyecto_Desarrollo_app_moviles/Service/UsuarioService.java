@@ -34,11 +34,18 @@ public class UsuarioService {
     public Usuario actualizarUsuario(int id, Usuario nuevaInfo) {
         Usuario usuarioExistente = obtenerPorId(id);
 
-        // Actualizar campos (se podría usar para el actualizar contrasenia y la foto)
+        // Actualizar campos, en este caso solo la contrasenia, podria ocuparse para la foto o el correo
         usuarioExistente.setContrasena(nuevaInfo.getContrasena());
-        // usuarioExistente.setFotoPerfil(nuevaInfo.getFotoPerfil());
 
         return usuarioRepository.save(usuarioExistente);
     }
 
+    public void eliminarUsuario(int id) {
+        // Verifica si el usuario existe antes de intentar eliminar
+        if (!usuarioRepository.existsById(id)) {
+            // Lanza una excepción si no existe
+            throw new NoSuchElementException("Usuario con ID " + id + " no encontrado.");
+        }
+        usuarioRepository.deleteById(id);
+    }
 }

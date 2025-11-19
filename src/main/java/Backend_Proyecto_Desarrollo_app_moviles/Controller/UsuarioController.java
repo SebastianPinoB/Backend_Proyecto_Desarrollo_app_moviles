@@ -2,7 +2,6 @@ package Backend_Proyecto_Desarrollo_app_moviles.Controller;
 
 import Backend_Proyecto_Desarrollo_app_moviles.Model.Usuario;
 import Backend_Proyecto_Desarrollo_app_moviles.Service.UsuarioService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +40,29 @@ public class UsuarioController {
         return ResponseEntity.status(201).body(nuevoUsuario);
     }
 
+
+    @PutMapping("/{id}") // <--- RUTA PUT AÑADIENDO EL ID
+    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable int id, @RequestBody Usuario usuario) {
+        try {
+            // Lógica interna (que no causa el 405)
+            Usuario usuarioActualizado = usuarioService.actualizarUsuario(id, usuario);
+            return ResponseEntity.ok(usuarioActualizado);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarUsuario(@PathVariable int id) {
+        try {
+            usuarioService.eliminarUsuario(id);
+            // 204 No Content - Indica que la acción fue exitosa y no hay contenido para retornar.
+            return ResponseEntity.noContent().build();
+        } catch (NoSuchElementException e) {
+            // Se lanza si el usuario con el ID especificado no existe
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
 }
