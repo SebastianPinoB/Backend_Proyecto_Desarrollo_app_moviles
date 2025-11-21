@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -40,6 +41,21 @@ public class UsuarioController {
         return ResponseEntity.status(201).body(nuevoUsuario);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Map<String, String> credenciales) {
+
+        // Obtenemos los valores del Map que Spring mapea desde el JSON
+        String correo = credenciales.get("correo");
+        String contrasena = credenciales.get("contrasena");
+
+        Usuario usuarioAutenticado = usuarioService.autenticar(correo, contrasena);
+
+        if (usuarioAutenticado != null) {
+            return ResponseEntity.ok(usuarioAutenticado);
+        } else {
+            return ResponseEntity.status(401).body("Correo o clave inválida");
+        }
+    }
 
     @PutMapping("/{id}") // <--- RUTA PUT AÑADIENDO EL ID
     public ResponseEntity<Usuario> actualizarUsuario(@PathVariable int id, @RequestBody Usuario usuario) {

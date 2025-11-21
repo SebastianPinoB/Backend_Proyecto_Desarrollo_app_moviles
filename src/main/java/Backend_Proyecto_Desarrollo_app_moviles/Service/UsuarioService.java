@@ -48,4 +48,22 @@ public class UsuarioService {
         }
         usuarioRepository.deleteById(id);
     }
+
+
+    // Autenticacion del login
+    public Usuario autenticar(String correo, String contrasena) {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findByCorreo(correo);
+
+        if (usuarioOpt.isPresent()) {
+            Usuario usuario = usuarioOpt.get();
+
+            // ⭐ CAMBIO a getContrasena() para que coincida con tu entidad
+            if (usuario.getContrasena().equals(contrasena)) {
+                return usuario; // Autenticación exitosa
+            }
+        }
+
+        return null; // Usuario no encontrado o clave incorrecta
+    }
+
 }
