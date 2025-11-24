@@ -33,7 +33,7 @@ public class Usuario {
 
     private String fotoPerfil;
 
-    public Usuario() {
+    public Usuario(Object o, String mail, String pass, String image) {
     }
     public Usuario(String fotoPerfil, Set<String> generosFavoritos, String telefono, String contrasena, String correo, String nombreCompleto) {
         this.fotoPerfil = fotoPerfil;
@@ -42,6 +42,9 @@ public class Usuario {
         this.contrasena = contrasena;
         this.correo = correo;
         this.nombreCompleto = nombreCompleto;
+    }
+
+    public Usuario() {
     }
 
     public int getId() {
