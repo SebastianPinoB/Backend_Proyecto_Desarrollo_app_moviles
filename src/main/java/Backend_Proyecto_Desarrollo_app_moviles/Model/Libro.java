@@ -17,16 +17,19 @@ public class Libro {
     private String idioma;
     @Column(nullable = false)
     private int paginas;
+    @Column(nullable = false, length = 50)
+    private String categoria;
 
     public Libro() {
     }
 
-    public Libro(int id, String titulo, String autor, String idioma, int paginas) {
+    public Libro(int id, String titulo, String autor, String idioma, int paginas, String categoria) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
         this.idioma = idioma;
         this.paginas = paginas;
+        this.categoria = categoria;
     }
 
     public int getId() {
@@ -67,5 +70,13 @@ public class Libro {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public String getCategoria() { 
+        return categoria; 
+    }
+    
+    public void setCategoria(String categoria) { 
+        this.categoria = categoria; 
     }
 }

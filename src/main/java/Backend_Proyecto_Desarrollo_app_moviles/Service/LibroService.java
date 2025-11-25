@@ -42,6 +42,7 @@ public class LibroService {
             libroExistente.setAutor(libroNuevo.getAutor());
             libroExistente.setIdioma(libroNuevo.getIdioma());
             libroExistente.setPaginas(libroNuevo.getPaginas());
+            libroExistente.setCategoria(libroNuevo.getCategoria());
 
             // 2. Guarda el objeto modificado
             return libroRepository.save(libroExistente);
